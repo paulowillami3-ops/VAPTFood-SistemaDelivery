@@ -166,9 +166,9 @@ const EstablishmentSettings = () => {
         <div className="min-h-screen bg-gray-50 pb-20">
             <div className="p-6 md:p-8 max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="mb-8">
+                <div className="mb-6 md:mb-8">
                     <h1 className="text-2xl font-bold text-gray-800">Configurações Estabelecimento</h1>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                    <div className="flex items-center gap-2 text-sm text-gray-500 mt-1 flex-wrap">
                         <span>Início</span>
                         <span>›</span>
                         <span>Configurações</span>
@@ -179,9 +179,27 @@ const EstablishmentSettings = () => {
                     </div>
                 </div>
 
+                {/* Mobile: Horizontal scrollable tabs */}
+                <div className="md:hidden -mx-6 mb-6 bg-white border-b border-gray-200 overflow-x-auto">
+                    <div className="flex w-max px-4">
+                        {sidebarItems.map((item, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setActiveSection(index)}
+                                className={`flex items-center gap-2 px-4 py-3 text-xs font-medium whitespace-nowrap border-b-2 transition-colors ${activeSection === index
+                                        ? 'border-blue-500 text-blue-600'
+                                        : 'border-transparent text-gray-500'
+                                    }`}
+                            >
+                                {item.label}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                    {/* Sidebar */}
-                    <div className="md:col-span-3 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    {/* Sidebar — desktop only */}
+                    <div className="hidden md:block md:col-span-3 bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
                         {sidebarItems.map((item, index) => {
                             const isActive = activeSection === index;
                             return (
@@ -193,8 +211,6 @@ const EstablishmentSettings = () => {
                                         : 'border-transparent text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                                         }`}
                                 >
-                                    {/* Optional: Add icons back if desired */}
-                                    {/* <item.icon size={18} /> */}
                                     <span>{item.label}</span>
                                 </button>
                             );
@@ -202,7 +218,7 @@ const EstablishmentSettings = () => {
                     </div>
 
                     {/* Main Content */}
-                    <div className="md:col-span-9 bg-white rounded-lg shadow-sm border border-gray-100 p-6 md:p-8 relative">
+                    <div className="md:col-span-9 bg-white rounded-lg shadow-sm border border-gray-100 p-4 md:p-8 relative">
                         {renderContent()}
                     </div>
                 </div>

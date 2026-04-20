@@ -751,35 +751,37 @@ const HallManagement = () => {
 
                 {/* Main Layout */}
                 <div className="flex flex-col lg:flex-row gap-6">
-                    {/* Sidebar Tabs */}
-                    <div className="w-full lg:w-64 shrink-0 space-y-1">
-                        <button
-                            onClick={() => setActiveTab('mesas')}
-                            className={`w-full text-left px-4 py-3 rounded-md text-sm font-medium transition-colors ${activeTab === 'mesas' ? 'bg-white text-[#0099FF] shadow-sm border border-gray-100' : 'text-gray-500 hover:bg-white hover:text-gray-700'}`}
-                        >
-                            Mesas - QR Code
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('comandas')}
-                            className={`w-full text-left px-4 py-3 rounded-md text-sm font-medium transition-colors ${activeTab === 'comandas' ? 'bg-white text-[#0099FF] shadow-sm border border-gray-100' : 'text-gray-500 hover:bg-white hover:text-gray-700'}`}
-                        >
-                            Comandas
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('garcons')}
-                            className={`w-full text-left px-4 py-3 rounded-md text-sm font-medium transition-colors ${activeTab === 'garcons' ? 'bg-white text-[#0099FF] shadow-sm border border-gray-100' : 'text-gray-500 hover:bg-white hover:text-gray-700'}`}
-                        >
-                            Garçons
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('taxa')}
-                            className={`w-full text-left px-4 py-3 rounded-md text-sm font-medium transition-colors ${activeTab === 'taxa' ? 'bg-white text-[#0099FF] shadow-sm border border-gray-100' : 'text-gray-500 hover:bg-white hover:text-gray-700'}`}
-                        >
-                            Taxa de serviço
-                        </button>
+                    {/* Sidebar Tabs - Now horizontal and scrollable on mobile */}
+                    <div className="w-full lg:w-64 shrink-0 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0">
+                        <div className="flex lg:flex-col space-x-2 lg:space-x-0 lg:space-y-1 min-w-max lg:min-w-0">
+                            <button
+                                onClick={() => setActiveTab('mesas')}
+                                className={`whitespace-nowrap px-6 lg:px-4 py-2 lg:py-3 rounded-md text-sm font-medium transition-colors ${activeTab === 'mesas' ? 'bg-white text-[#0099FF] shadow-sm border border-gray-100' : 'text-gray-500 hover:bg-white hover:text-gray-700'}`}
+                            >
+                                Mesas - QR Code
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('comandas')}
+                                className={`whitespace-nowrap px-6 lg:px-4 py-2 lg:py-3 rounded-md text-sm font-medium transition-colors ${activeTab === 'comandas' ? 'bg-white text-[#0099FF] shadow-sm border border-gray-100' : 'text-gray-500 hover:bg-white hover:text-gray-700'}`}
+                            >
+                                Comandas
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('garcons')}
+                                className={`whitespace-nowrap px-6 lg:px-4 py-2 lg:py-3 rounded-md text-sm font-medium transition-colors ${activeTab === 'garcons' ? 'bg-white text-[#0099FF] shadow-sm border border-gray-100' : 'text-gray-500 hover:bg-white hover:text-gray-700'}`}
+                            >
+                                Garçons
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('taxa')}
+                                className={`whitespace-nowrap px-6 lg:px-4 py-2 lg:py-3 rounded-md text-sm font-medium transition-colors ${activeTab === 'taxa' ? 'bg-white text-[#0099FF] shadow-sm border border-gray-100' : 'text-gray-500 hover:bg-white hover:text-gray-700'}`}
+                            >
+                                Taxa de serviço
+                            </button>
+                        </div>
 
-                        {/* Help Box */}
-                        <div className="mt-8 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                        {/* Help Box - Hidden on Mobile */}
+                        <div className="hidden lg:block mt-8 bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
                             <h4 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
                                 Dúvidas sobre o App Garçom?
                             </h4>
@@ -788,7 +790,8 @@ const HallManagement = () => {
                             </button>
                         </div>
 
-                        <div className="mt-4 bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex flex-col items-center text-center">
+                        {/* CTA Box - Hidden on Mobile */}
+                        <div className="hidden lg:flex mt-4 bg-white p-4 rounded-lg border border-gray-200 shadow-sm flex-col items-center text-center">
                             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-2">
                                 <Settings className="text-[#0099FF]" size={32} />
                             </div>

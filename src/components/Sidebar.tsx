@@ -1,8 +1,8 @@
 import {
-    ShoppingBag, Store, Utensils, Calendar, BookOpen, Settings,
+    ShoppingBag, Store, Utensils, BookOpen, Settings,
     Search, ChevronDown, LogOut, X,
-    TrendingUp, ChefHat, Bot, LayoutDashboard, HelpCircle, MessageSquare, Shield,
-    FileText, Smile, CreditCard, Truck, User, Zap, Ticket
+    TrendingUp, ChefHat, LayoutDashboard,
+    FileText, User
 } from 'lucide-react';
 import { differenceInMinutes } from 'date-fns';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -272,7 +272,6 @@ const Sidebar = ({ isOpen, onClose, isCollapsed, toggleCollapse }: SidebarProps)
                     { icon: ShoppingBag, label: "Meus pedidos", path: `/${slug}/admin/orders`, count: orderCount > 0 ? orderCount : undefined },
                     { icon: Store, label: "Pedidos balcão (PDV)", path: `/${slug}/admin/pdv` },
                     { icon: Utensils, label: "Pedidos salão", path: `/${slug}/admin/local-orders/tables` },
-                    { icon: Calendar, label: "Pedidos agendados", path: `/${slug}/admin/scheduled-orders`, count: 0 },
                     {
                         icon: BookOpen,
                         label: "Gestor de cardápio",
@@ -280,28 +279,10 @@ const Sidebar = ({ isOpen, onClose, isCollapsed, toggleCollapse }: SidebarProps)
                         subItems: [
                             { label: "Gestor", path: `/${slug}/admin/menu-manager`, isHeader: true },
                             { label: "Imagens do cardápio", path: `/${slug}/admin/menu-media` },
-                            { label: "Edição em massa", path: `/${slug}/admin/bulk-edit` },
-                            { label: "Potencializador de cardápio", path: `/${slug}/admin/menu-booster` },
-                            { label: "Importação inteligente do cardápio", path: `/${slug}/admin/smart-import` },
-                        ]
-                    },
-                    {
-                        icon: Settings,
-                        label: "Gestão avançada",
-                        path: `/${slug}/admin/management`,
-                        badge: "NOVO",
-                        subItems: [
-                            { label: "Controle de estoque", path: `/${slug}/admin/management/inventory`, openNewTab: true },
-                            { label: "Ficha técnica", path: `/${slug}/admin/management/tech-specs`, openNewTab: true },
-                            { label: "Controle de caixa", path: `/${slug}/admin/management/cashier`, openNewTab: true },
-                            { label: "Nota fiscal", path: `/${slug}/admin/management/invoices`, badge: "NOVO", openNewTab: true },
-                            { label: "Financeiro", path: `/${slug}/admin/management/finance`, openNewTab: true },
-                            { label: "Compras", path: `/${slug}/admin/management/purchases`, openNewTab: true },
                         ]
                     },
                     { icon: TrendingUp, label: "Meu Desempenho", path: `/${slug}/admin/performance` },
                     { icon: ChefHat, label: "Cozinha (KDS)", path: `/${slug}/admin/kds` },
-                    { icon: Bot, label: "Robô", path: `/${slug}/admin/robot`, hasSubmenu: true },
                 ]
             },
             {
@@ -321,16 +302,9 @@ const Sidebar = ({ isOpen, onClose, isCollapsed, toggleCollapse }: SidebarProps)
                             { label: "Taxa de serviço", path: `/${slug}/admin/hall-settings/service-fee` },
                             { label: "Cardápio QR Code", path: `/${slug}/admin/hall-settings/qrcode` },
                             { label: "Impressoras", path: `/${slug}/admin/hall-settings/printers` },
-                            { label: "Balanças", path: `/${slug}/admin/hall-settings/scales`, badge: "NOVO" },
+                            { label: "Balanças", path: `/${slug}/admin/hall-settings/scales` },
                         ]
                     }
-                ]
-            },
-            {
-                label: "Venda mais",
-                items: [
-                    { icon: Zap, label: "Recuperador de vendas", path: `/${slug}/admin/sales-recovery` },
-                    { icon: Ticket, label: "Cupom", path: `/${slug}/admin/coupons` },
                 ]
             },
             {
@@ -343,60 +317,28 @@ const Sidebar = ({ isOpen, onClose, isCollapsed, toggleCollapse }: SidebarProps)
                         subItems: [
                             { label: "Geral", path: `/${slug}/admin/reports/general` },
                             { label: "Caixas", path: `/${slug}/admin/reports/cashier` },
-                            { label: "Clientes", path: `/${slug}/admin/reports/customers` },
-                            { label: "Entradas", path: `/${slug}/admin/reports/entries` },
-                            { label: "Pedidos", path: `/${slug}/admin/reports/orders` },
-                            { label: "Notas fiscais", path: `/${slug}/admin/reports/invoices`, badge: "NOVO" },
-                            { label: "Mesas", path: `/${slug}/admin/reports/tables` },
-                            { label: "Cupons", path: `/${slug}/admin/reports/coupons` },
                         ]
                     },
-                    { icon: Smile, label: "Satisfação", path: `/${slug}/admin/satisfaction` },
                 ]
             },
             {
                 label: "Configurações",
                 items: [
-                    { icon: CreditCard, label: "Pagamentos", path: `/${slug}/admin/payments` },
-                    { icon: Truck, label: "Entregadores", path: `/${slug}/admin/delivery-men`, hasSubmenu: true },
                     {
-                        icon: User, label: "Minha conta", path: `/${slug}/admin/account`,
+                        icon: User, label: "Minha conta", path: `/${slug}/admin/account/collaborators`,
                         subItems: [
-                            { label: "Geral", path: `/${slug}/admin/account/general` },
-                            { label: "Informações pessoais", path: `/${slug}/admin/account/personal-info` },
-                            { label: "Formas de pagamento", path: `/${slug}/admin/account/payment-methods` },
-                            { label: "Fatura", path: `/${slug}/admin/account/invoices` },
-                            { label: "Planos", path: `/${slug}/admin/account/plans` },
                             { label: "Colaboradores", path: `/${slug}/admin/account/collaborators` },
                         ]
                     },
                     {
                         icon: Settings, label: "Configurações", path: `/${slug}/admin/settings`,
                         subItems: [
-                            { label: "Meus Clientes", path: `/${slug}/admin/settings/customers`, badge: "NOVO" },
                             { label: "Meus Pedidos", path: `/${slug}/admin/settings/orders` },
-                            { label: "Impressora", path: `/${slug}/admin/settings/printer` },
-                            { label: "Nota Fiscal", path: `/${slug}/admin/settings/invoices` },
-                            { label: "Frente de caixa", path: `/${slug}/admin/settings/pos` },
-                            { label: "Integrações", path: `/${slug}/admin/settings/integrations` },
                             { label: "Cardápio Digital", path: `/${slug}/admin/settings/digital-menu` },
-                            { label: "Redes Sociais", path: `/${slug}/admin/settings/social` },
-                            { label: "Entregadores", path: `/${slug}/admin/delivery-men` },
-                            { label: "Robô", path: `/${slug}/admin/robot` },
                             { label: "Estabelecimento", path: `/${slug}/admin/settings/establishment` },
-                            { label: "Pedidos agendados", path: `/${slug}/admin/scheduled-orders` },
-                            { label: "Integração de anúncios", path: `/${slug}/admin/settings/ads-integration` },
                             { label: "Produtos em destaque", path: `/${slug}/admin/settings/featured` },
                         ]
                     }
-                ]
-            },
-            {
-                label: "Central VAPT Food",
-                items: [
-                    { icon: HelpCircle, label: "Instruções de ajuda", path: `/${slug}/admin/help` },
-                    { icon: MessageSquare, label: "Sugestões", path: `/${slug}/admin/suggestions` },
-                    { icon: Shield, label: "Termos e Políticas", path: `/${slug}/admin/terms` },
                 ]
             }
         ];
@@ -647,7 +589,7 @@ const Sidebar = ({ isOpen, onClose, isCollapsed, toggleCollapse }: SidebarProps)
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-sm font-bold text-white leading-tight">{establishment.name || 'Noia Burguer'}</span>
-                                        <span className="text-xs text-gray-400 mb-1">{establishment.contacts?.[0] || 'Paulo Willami'}</span>
+                                        <span className="text-xs text-gray-400 mb-1">{establishment.legal_representative_name || establishment.contacts?.[0] || ''}</span>
 
                                         {/* Status Badge */}
                                         <div className={`

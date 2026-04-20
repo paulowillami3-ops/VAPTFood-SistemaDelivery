@@ -137,17 +137,35 @@ const DigitalMenuSettings: React.FC = () => {
     );
 
     return (
-        <div className="min-h-screen bg-[#F4F5F7] p-6 font-sans">
+        <div className="min-h-screen bg-[#F4F5F7] p-4 md:p-6 font-sans pb-24">
             {/* Breadcrumb */}
-            <div className="text-xs text-gray-400 mb-6 font-medium">
+            <div className="text-xs text-gray-400 mb-4 md:mb-6 font-medium flex flex-wrap gap-1">
                 Início <span className="mx-1">▸</span> Configurações <span className="mx-1">▸</span> Cardápio Digital <span className="mx-1">▸</span> <span className="text-gray-600 font-bold">{MENU_STEPS.find(s => s.id === activeStep)?.label}</span>
             </div>
 
-            <h1 className="text-2xl font-bold text-gray-800 mb-8">Cardápio Digital</h1>
+            <h1 className="text-2xl font-bold text-gray-800 mb-4 md:mb-8">Cardápio Digital</h1>
+
+            {/* Mobile: Horizontal scrollable tabs */}
+            <div className="md:hidden -mx-4 mb-4 bg-white border-b border-gray-200 overflow-x-auto">
+                <div className="flex w-max px-2">
+                    {MENU_STEPS.map((step) => (
+                        <button
+                            key={step.id}
+                            onClick={() => setActiveStep(step.id)}
+                            className={`flex items-center gap-1 px-3 py-3 text-xs font-medium whitespace-nowrap border-b-2 transition-colors ${activeStep === step.id
+                                    ? 'border-[#0099FF] text-[#0099FF]'
+                                    : 'border-transparent text-gray-500'
+                                }`}
+                        >
+                            {step.id}. {step.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
 
             <div className="flex gap-6 items-start">
-                {/* Sidebar Navigation */}
-                <div className="w-64 bg-white rounded-lg shadow-sm overflow-hidden shrink-0">
+                {/* Sidebar Navigation — desktop only */}
+                <div className="hidden md:block w-64 bg-white rounded-lg shadow-sm overflow-hidden shrink-0">
                     {MENU_STEPS.map((step) => (
                         <button
                             key={step.id}
@@ -166,9 +184,9 @@ const DigitalMenuSettings: React.FC = () => {
                 </div>
 
                 {/* Main Content */}
-                <div className="flex-1 bg-white rounded-lg shadow-sm p-8 min-h-[600px] flex gap-8">
+                <div className="flex-1 min-w-0 bg-white rounded-lg shadow-sm p-4 md:p-8 min-h-[400px] md:min-h-[600px] flex gap-8">
                     {/* Input Area */}
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                         {activeStep === 1 && (
                             <>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-1">1. Configurações</h2>
@@ -358,8 +376,8 @@ const DigitalMenuSettings: React.FC = () => {
                         )}
                     </div>
 
-                    {/* Right Preview Area */}
-                    <div className="w-[300px] shrink-0 pt-12">
+                    {/* Right Preview Area — desktop only */}
+                    <div className="hidden md:block w-[300px] shrink-0 pt-12">
                         {activeStep <= 4 && (
                             <PhonePreview>
                                 {activeStep === 1 && (

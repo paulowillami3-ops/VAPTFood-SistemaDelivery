@@ -52,6 +52,7 @@ interface EstablishmentData {
     pickup_time_max?: number;
     minimum_order_fee_enabled?: boolean;
     minimum_order_fee_value?: number;
+    legal_representative_name?: string;
 }
 
 interface EstablishmentContextType {
@@ -131,7 +132,7 @@ export const EstablishmentProvider: React.FC<{ children: React.ReactNode }> = ({
 
             let query = supabase
                 .from('establishment_settings')
-                .select('id, slug, name, logo_url, timezone, operation_mode, work_shifts, auto_accept_orders, auto_accept_modal_seen, cep, street, number, neighborhood, city, state, complement, reference, hide_address, manual_coordinates, latitude, longitude, payment_methods_on_delivery, contacts, delivery_time_min, delivery_time_max, pickup_time_min, pickup_time_max, minimum_order_fee_enabled, minimum_order_fee_value');
+                .select('id, slug, name, logo_url, timezone, operation_mode, work_shifts, auto_accept_orders, auto_accept_modal_seen, cep, street, number, neighborhood, city, state, complement, reference, hide_address, manual_coordinates, latitude, longitude, payment_methods_on_delivery, contacts, delivery_time_min, delivery_time_max, pickup_time_min, pickup_time_max, minimum_order_fee_enabled, minimum_order_fee_value, legal_representative_name');
 
             // Security Fix: Do not fallback to default. Only fetch if slug is present.
             if (!slug || slug === 'login' || slug === 'signup' || slug === 'admin' || slug === 'menu') {
@@ -194,6 +195,7 @@ export const EstablishmentProvider: React.FC<{ children: React.ReactNode }> = ({
                     pickup_time_max: data.pickup_time_max,
                     minimum_order_fee_enabled: data.minimum_order_fee_enabled,
                     minimum_order_fee_value: data.minimum_order_fee_value,
+                    legal_representative_name: data.legal_representative_name,
                     ...status
                 });
             }

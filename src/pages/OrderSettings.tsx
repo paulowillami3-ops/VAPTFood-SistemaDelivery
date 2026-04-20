@@ -374,8 +374,8 @@ const OrderSettings = () => {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Header */}
-            <div className="bg-white border-b border-gray-200 px-8 py-4">
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+            <div className="bg-white border-b border-gray-200 px-4 md:px-8 py-4">
+                <div className="flex items-center gap-2 text-sm text-gray-500 mb-1 flex-wrap">
                     <span>Início</span>
                     <span>›</span>
                     <span>Configurações</span>
@@ -391,9 +391,32 @@ const OrderSettings = () => {
                 <h1 className="text-2xl font-bold text-gray-800">Meus pedidos</h1>
             </div>
 
-            <div className="flex max-w-7xl mx-auto p-6 gap-6">
-                {/* Sidebar */}
-                <div className="w-64 flex-shrink-0">
+            {/* Mobile: Horizontal scrollable tabs */}
+            <div className="md:hidden bg-white border-b border-gray-200 overflow-x-auto">
+                <div className="flex w-max">
+                    {tabs.map((tab) => {
+                        const Icon = tab.icon;
+                        return (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab.id)}
+                                className={`flex items-center gap-2 px-4 py-3 text-xs font-medium whitespace-nowrap border-b-2 transition-colors ${activeTab === tab.id
+                                        ? 'border-blue-500 text-blue-500'
+                                        : 'border-transparent text-gray-500'
+                                    }`}
+                            >
+                                <Icon size={14} />
+                                {tab.label}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+
+            {/* Desktop: Two-column layout / Mobile: Single column */}
+            <div className="flex flex-col md:flex-row max-w-7xl mx-auto p-4 md:p-6 gap-6">
+                {/* Sidebar — desktop only */}
+                <div className="hidden md:block w-64 flex-shrink-0">
                     <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
                         {tabs.map((tab) => {
                             const Icon = tab.icon;
@@ -415,8 +438,8 @@ const OrderSettings = () => {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1">
-                    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-8 min-h-[500px]">
+                <div className="flex-1 min-w-0">
+                    <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-4 md:p-8 min-h-[400px]">
                         {isLoading ? (
                             <div className="flex justify-center items-center h-40">
                                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
